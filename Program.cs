@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace heistTwo
 {
@@ -7,6 +8,7 @@ namespace heistTwo
     {
         static void Main(string[] args)
         {
+            Bank newBank = new Bank();
             var rolodex = new List<IRobber>();
 
             var Garrett = new Muscle()
@@ -97,7 +99,7 @@ namespace heistTwo
                             newHacker.PercentageCut = int.Parse(newMemberPercentageCut);
                             rolodex.Add(newHacker);
                         }
-                        else if (newMemberSpecialty.ToLower() == "lockspecialist")
+                        else if (newMemberSpecialty.ToLower() == "lock specialist")
                         {
                             LockSpecialist newLockSpecialist = new LockSpecialist()
                             {
@@ -122,7 +124,30 @@ namespace heistTwo
                     }
                 }
             }
-            Console.WriteLine($" Your Crew has {rolodex.Count} members");
+            foreach (var member in rolodex)
+            {
+                Console.WriteLine(member.Name);
+            }
+            Dictionary<string, int> bankScores = new Dictionary<string, int>();
+
+            Random rand = new Random();
+            var AlarmScore = rand.Next(0, 101);
+            var VaultScore = rand.Next(0, 101);
+            var SecurityGuardScore = rand.Next(0, 101);
+            var CashOnHand = rand.Next(50000, 100000001);
+
+            bankScores.Add("Alarm Score", AlarmScore);
+            bankScores.Add("Vault Score", VaultScore);
+            bankScores.Add("Security Guard Score", SecurityGuardScore);
+
+            bankScores.OrderBy(score => score.Value);
+
+            var mostSecure = bankScores.Last();
+            var leastSecure = bankScores.First();
+
+            Console.WriteLine($"Most Secure: {mostSecure.Key} at {mostSecure.Value}");
+            Console.WriteLine($"Least Secure: {leastSecure.Key} at {leastSecure.Value}");
+
         }
     }
 }
