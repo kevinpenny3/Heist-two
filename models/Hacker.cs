@@ -16,5 +16,9 @@ namespace heistTwo
                 Console.WriteLine($"{Name} has disabled the alarm system.");
             }
         }
+        public override string ToString()
+        {
+            return $"{Name} is a Hacker and has a skill level of {SkillLevel} and wants {PercentageCut}% cut.";
+        }
     }
 }

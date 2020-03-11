@@ -16,6 +16,10 @@ namespace heistTwo
                 Console.WriteLine($"{Name} has beaten all the guards.");
             }
         }
+        public override string ToString()
+        {
+            return $"{Name} is the Muscle, and has a skill level of {SkillLevel} and wants {PercentageCut}% cut.";
+        }
 
     }
 }

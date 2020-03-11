@@ -16,6 +16,10 @@ namespace heistTwo
                 Console.WriteLine($"{Name} has opened the safe.");
             }
         }
+        public override string ToString()
+        {
+            return $"{Name} is a Lock Specialist and has a skill level of {SkillLevel} and wants {PercentageCut}% cut.";
+        }
 
     }
 }

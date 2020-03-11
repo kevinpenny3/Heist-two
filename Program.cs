@@ -28,7 +28,7 @@ namespace heistTwo
             var Namita = new Hacker()
             {
                 Name = "Ms. Missmewiththatshit",
-                SkillLevel = 650,
+                SkillLevel = 65,
                 PercentageCut = 0,
             };
 
@@ -124,10 +124,10 @@ namespace heistTwo
                     }
                 }
             }
-            foreach (var member in rolodex)
-            {
-                Console.WriteLine(member.Name);
-            }
+            // foreach (var member in rolodex)
+            // {
+            //     Console.WriteLine(member.Name);
+            // }
             Dictionary<string, int> bankScores = new Dictionary<string, int>();
 
             Random rand = new Random();
@@ -140,13 +140,54 @@ namespace heistTwo
             bankScores.Add("Vault Score", VaultScore);
             bankScores.Add("Security Guard Score", SecurityGuardScore);
 
-            bankScores.OrderBy(score => score.Value);
+            var orderedScores = bankScores.OrderBy(score => score.Value);
 
-            var mostSecure = bankScores.Last();
-            var leastSecure = bankScores.First();
+            var mostSecure = orderedScores.Last();
+            var leastSecure = orderedScores.First();
 
             Console.WriteLine($"Most Secure: {mostSecure.Key} at {mostSecure.Value}");
             Console.WriteLine($"Least Secure: {leastSecure.Key} at {leastSecure.Value}");
+
+            foreach (var member in rolodex)
+            {
+                Console.WriteLine($"{rolodex.IndexOf(member)} {member.ToString()}");
+            }
+
+            List<IRobber> crew = new List<IRobber>();
+
+            while (true)
+            {
+
+                Console.WriteLine("Add Member to Crew?(Enter Number #)");
+
+                var chosenMember = Console.ReadLine();
+                if (chosenMember == "")
+                {
+                    break;
+                }
+                else
+                {
+                    foreach (var item in rolodex)
+                    {
+                        if (int.Parse(chosenMember) == rolodex.IndexOf(item))
+                        {
+                            crew.Add(item);
+                            rolodex.Remove(item);
+                            break;
+                        }
+                    }
+                    foreach (var item in rolodex)
+                    {
+                        Console.WriteLine($"{rolodex.IndexOf(item)} {item.ToString()}");
+                    }
+
+                }
+
+            }
+            foreach (var person in crew)
+            {
+                Console.WriteLine($"{crew.IndexOf(person)} {person.ToString()}");
+            }
 
         }
     }
