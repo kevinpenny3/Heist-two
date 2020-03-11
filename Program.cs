@@ -36,7 +36,7 @@ namespace heistTwo
             {
                 Name = "Upinsmoke",
                 SkillLevel = 95,
-                PercentageCut = 95,
+                PercentageCut = 30,
             };
 
             var Audrey = new Hacker()
@@ -134,7 +134,12 @@ namespace heistTwo
             var AlarmScore = rand.Next(0, 101);
             var VaultScore = rand.Next(0, 101);
             var SecurityGuardScore = rand.Next(0, 101);
-            var CashOnHand = rand.Next(50000, 100000001);
+            var CashOnHand = rand.Next(50000, 1000001);
+
+            newBank.AlarmScore = AlarmScore;
+            newBank.VaultScore = VaultScore;
+            newBank.SecurityGuardSore = SecurityGuardScore;
+            newBank.CashOnHand = CashOnHand;
 
             bankScores.Add("Alarm Score", AlarmScore);
             bankScores.Add("Vault Score", VaultScore);
@@ -154,7 +159,7 @@ namespace heistTwo
             }
 
             List<IRobber> crew = new List<IRobber>();
-            var totalCut = 100;
+            double totalCut = 100;
             while (true)
             {
 
@@ -190,10 +195,31 @@ namespace heistTwo
                 }
 
             }
-
+            Console.WriteLine($"Assembled Crew");
             foreach (var person in crew)
             {
                 Console.WriteLine($"{crew.IndexOf(person)} {person.ToString()}");
+            }
+
+            foreach (var crewMember in crew)
+            {
+                crewMember.PerformSkill(newBank);
+            }
+            if (newBank.IsSecure == true)
+            {
+                Console.WriteLine($"The Heist was a failure, dont drop the soap");
+            }
+            else
+            {
+                Console.WriteLine($"You did it!");
+                double totalMemberEarnings = 0;
+                foreach (var member in crew)
+                {
+                    var yourTake = (member.PercentageCut / 100) * newBank.CashOnHand;
+                    totalMemberEarnings += yourTake;
+                    Console.WriteLine($"{member.Name}: Your cut is {yourTake.ToString("C")}");
+                }
+                Console.WriteLine($"The MasterMind earned {(newBank.CashOnHand - totalMemberEarnings).ToString("C")}");
             }
 
         }

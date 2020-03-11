@@ -4,7 +4,7 @@ namespace heistTwo
     {
         string Name { get; set; }
         int SkillLevel { get; set; }
-        int PercentageCut { get; set; }
+        double PercentageCut { get; set; }
         void PerformSkill(Bank bank);
     }
 }
