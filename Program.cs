@@ -154,12 +154,12 @@ namespace heistTwo
             }
 
             List<IRobber> crew = new List<IRobber>();
-
+            var totalCut = 100;
             while (true)
             {
 
                 Console.WriteLine("Add Member to Crew?(Enter Number #)");
-
+                // var totalCut = 100;
                 var chosenMember = Console.ReadLine();
                 if (chosenMember == "")
                 {
@@ -172,18 +172,25 @@ namespace heistTwo
                         if (int.Parse(chosenMember) == rolodex.IndexOf(item))
                         {
                             crew.Add(item);
+                            totalCut -= item.PercentageCut;
+                            Console.WriteLine($"Remaining Cut: {totalCut}%");
                             rolodex.Remove(item);
                             break;
+
                         }
                     }
-                    foreach (var item in rolodex)
+                }
+                foreach (var item in rolodex)
+                {
+                    if (item.PercentageCut < totalCut)
                     {
+
                         Console.WriteLine($"{rolodex.IndexOf(item)} {item.ToString()}");
                     }
-
                 }
 
             }
+
             foreach (var person in crew)
             {
                 Console.WriteLine($"{crew.IndexOf(person)} {person.ToString()}");
